@@ -6,26 +6,29 @@ const Presentation = ({ datas }) => {
         <>
           {datas.header.headerTags.lines.map((line) => {
             return (
-              <>
+              <div key={line.key}>
                 {line.spans.map((span) => {
-                  return <p> {span.text ? span.text : null}</p>;
+                  return <p key={span.key}> {span.text ? span.text : null}</p>;
                 })}
-              </>
+              </div>
             );
           })}
+
           {datas.header.headerInfoRows.map((element) => {
             return (
-              <>
+              <div key={element.key}>
                 {element.lines.map((line) => {
                   return (
-                    <>
+                    <div key={line.key}>
                       {line.spans.map((span) => {
-                        return <p> {span.text ? span.text : null}</p>;
+                        return (
+                          <p key={span.key}> {span.text ? span.text : null}</p>
+                        );
                       })}
-                    </>
+                    </div>
                   );
                 })}
-              </>
+              </div>
             );
           })}
         </>
