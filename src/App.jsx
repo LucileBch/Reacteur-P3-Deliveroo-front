@@ -8,12 +8,14 @@ import Header from "./components/Header";
 import Presentation from "./components/Presentation";
 import Category from "./components/Category";
 
-// Import style
+// Import styles
 import "./App.css";
 
 const App = () => {
-  // Get datas
+  // Get datas with useEffect
   // Check server response
+  //    If waiting for data : display loading
+  //    Else display components
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,7 +24,7 @@ const App = () => {
     setData(response.data);
     setIsLoading(false);
   };
-  // rajouter try/catch
+
   useEffect(() => {
     fetchData();
   }, []);
