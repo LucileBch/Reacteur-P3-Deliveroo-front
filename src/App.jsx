@@ -20,8 +20,7 @@ const App = () => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
-  const [itemInCart, setItemInCart] = useState([]);
-  const [subtotal, setSubtotal] = useState(0);
+  const [cart, setCart] = useState([]);
 
   const fetchData = async () => {
     const response = await axios.get(`http://localhost:3200/`);
@@ -42,6 +41,7 @@ const App = () => {
         ) : (
           <>
             <Presentation datas={data} />
+            <Cart cart={cart} setCart={setCart} />
             <section className="meal-section">
               {data.meta.categories.map((category) => {
                 return (
@@ -49,14 +49,11 @@ const App = () => {
                     key={category.id}
                     category={category}
                     items={data.items}
-                    itemInCart={itemInCart}
-                    setItemInCart={setItemInCart}
-                    subtotal={subtotal}
-                    setSubtotal={setSubtotal}
+                    cart={cart}
+                    setCart={setCart}
                   />
                 );
               })}
-              <Cart itemInCart={itemInCart} subtotal={subtotal} />
             </section>
           </>
         )}

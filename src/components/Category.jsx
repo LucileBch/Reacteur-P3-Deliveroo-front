@@ -2,20 +2,27 @@
 // Import component
 import Meal from "./Meal";
 
-const Category = ({
-  category,
-  items,
-  itemInCart,
-  setItemInCart,
-  subtotal,
-  setSubtotal,
-}) => {
+const Category = ({ category, items, cart, setCart }) => {
   const handleClick = (item) => {
-    const newCart = [...itemInCart];
-    newCart.push(item);
-    setItemInCart(newCart);
+    const newCart = [...cart];
+
+    const search = newCart.find((element) => element.id === item.id);
+
+    if (search) {
+      search.quantity++;
+      search.price = search.quantity * search.originPrice;
+    } else {
+      newCart.push({
+        id: item.id,
+        name: item.name,
+        originPrice: item.price.fractional / 100,
+        price: 1,
+        quantity: 1,
+      });
+    }
+
+    setCart(newCart);
     console.log(newCart);
-    setSubtotal(subtotal + item.price.fractional / 100);
   };
 
   return (
