@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Presentation from "./components/Presentation";
 import Category from "./components/Category";
+import Cart from "./components/Cart";
 
 // Import styles
 import "./App.css";
@@ -18,6 +19,9 @@ const App = () => {
   //    Else display components
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+
+  const [itemInCart, setItemInCart] = useState([]);
+  const [subtotal, setSubtotal] = useState(0);
 
   const fetchData = async () => {
     const response = await axios.get(`http://localhost:3200/`);
@@ -32,11 +36,11 @@ const App = () => {
   return (
     <>
       <Header />
-      <div>
+      <main>
         {isLoading === true ? (
           "Loading"
         ) : (
-          <main>
+          <>
             <Presentation datas={data} />
             <section className="meal-section">
               {data.meta.categories.map((category) => {
@@ -45,13 +49,18 @@ const App = () => {
                     key={category.id}
                     category={category}
                     items={data.items}
+                    itemInCart={itemInCart}
+                    setItemInCart={setItemInCart}
+                    subtotal={subtotal}
+                    setSubtotal={setSubtotal}
                   />
                 );
               })}
+              <Cart itemInCart={itemInCart} subtotal={subtotal} />
             </section>
-          </main>
+          </>
         )}
-      </div>
+      </main>
     </>
   );
 };

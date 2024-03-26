@@ -12,6 +12,7 @@ body {
   font-weight: normal;
   color: #868a8a;
   font-size: 1.4rem;
+  margin: 0 auto;
 }
 
 .container {
@@ -43,4 +44,10 @@ header {
 
 .meal-section {
   background-color: #f3f5f5;
+}
+
+aside {
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 100px;
 }

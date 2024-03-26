@@ -1,7 +1,7 @@
 // ---------- MEAL component ----------
-const Meal = ({ meals }) => {
+const Meal = ({ meals, onClick }) => {
   return (
-    <div>
+    <div onClick={onClick}>
       <h3>{meals.name}</h3>
       <p>{meals.description}</p>
       <p>{meals.price.formatted}</p>
