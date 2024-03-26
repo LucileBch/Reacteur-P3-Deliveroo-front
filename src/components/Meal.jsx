@@ -1,16 +1,16 @@
 // ---------- MEAL component ----------
-const Meal = ({ meal }) => {
+const Meal = ({ meals }) => {
   return (
     <div>
-      <h3>{meal.title}</h3>
-      <p>{meal.description}</p>
-      <p>{meal.price}</p>
-      {meal.popular && <p>⭐️ Populaire</p>}
-      {meal.picture ? (
+      <h3>{meals.name}</h3>
+      <p>{meals.description}</p>
+      <p>{meals.price.formatted}</p>
+      {meals.popular && <p>⭐️ Populaire</p>}
+      {meals.image ? (
         <img
           className="presentation-img"
-          src={meal.picture}
-          alt={`photo de ${meal.title}`}
+          src={meals.image.url}
+          alt={meals.image.altText}
         />
       ) : null}
     </div>

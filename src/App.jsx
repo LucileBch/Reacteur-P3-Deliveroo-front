@@ -17,13 +17,13 @@ const App = () => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
+  const fetchData = async () => {
+    const response = await axios.get(`http://localhost:3200/`);
+    setData(response.data);
+    setIsLoading(false);
+  };
+  // rajouter try/catch
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get(`http://localhost:3200/`);
-      setData(response.data);
-      // console.log(response.data);
-      setIsLoading(false);
-    };
     fetchData();
   }, []);
 
@@ -35,10 +35,16 @@ const App = () => {
           "Loading"
         ) : (
           <main>
-            <Presentation datas={data.restaurant} />
+            <Presentation datas={data} />
             <section className="meal-section">
-              {data.categories.map((category) => {
-                return <Category key={category.name} category={category} />;
+              {data.meta.categories.map((category) => {
+                return (
+                  <Category
+                    key={category.id}
+                    category={category}
+                    items={data.items}
+                  />
+                );
               })}
             </section>
           </main>

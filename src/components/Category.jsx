@@ -1,13 +1,16 @@
 // ---------- CATEGORY component ----------
-// Import
+// Import component
 import Meal from "./Meal";
 
-const Category = ({ category }) => {
+const Category = ({ category, items }) => {
   return (
     <div className="container">
       <h2>{category.name}</h2>
-      {category.meals.map((meal) => {
-        return <Meal key={meal.id} meal={meal} />;
+
+      {items.map((item) => {
+        return (
+          category.id === item.categoryId && <Meal key={item.id} meals={item} />
+        );
       })}
     </div>
   );
