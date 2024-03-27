@@ -1,5 +1,9 @@
-const Cart = ({ cart, setCart }) => {
-  const deliveryPrice = 2.5;
+const Cart = ({ cart, setCart, subTotal }) => {
+  const deliveryPrice = 250;
+  const fixedDeliveryPrice = (deliveryPrice / 100)
+    .toFixed(2)
+    .split(".")
+    .join(",");
 
   const handleDecrement = (item, index) => {
     const newCart = [...cart];
@@ -10,9 +14,9 @@ const Cart = ({ cart, setCart }) => {
       newCart.splice(index, 1);
     } else if (search) {
       search.quantity--;
-      search.price = search.quantity * search.originPrice;
     }
     setCart(newCart);
+    console.log(newCart);
   };
 
   const handleIncrement = (item) => {
@@ -20,9 +24,9 @@ const Cart = ({ cart, setCart }) => {
     const search = newCart.find((element) => element.id === item.id);
     if (search) {
       search.quantity++;
-      search.price = search.quantity * search.originPrice;
     }
     setCart(newCart);
+    console.log(newCart);
   };
 
   return (
@@ -32,7 +36,7 @@ const Cart = ({ cart, setCart }) => {
       <div>
         {cart.map((item, index) => {
           return (
-            <div>
+            <div key={item.id}>
               <button
                 onClick={() => {
                   handleDecrement(item, index);
@@ -50,11 +54,13 @@ const Cart = ({ cart, setCart }) => {
               </button>
               <p>{item.name}</p>
 
-              {item.quantity === 1 ? (
-                <p>{`${item.originPrice} €`}</p>
-              ) : (
-                <p>{`${item.price} €`}</p>
-              )}
+              <p>
+                {((item.price * item.quantity) / 100)
+                  .toFixed(2)
+                  .split(".")
+                  .join(",")}{" "}
+                €
+              </p>
             </div>
           );
         })}
@@ -63,18 +69,20 @@ const Cart = ({ cart, setCart }) => {
       <div>
         <div>
           <p>Sous-total</p>
-          <p>SOUS TOTAL A CALCULER</p>
+          <p>{(subTotal / 100).toFixed(2).split(".").join(",")} €</p>
         </div>
 
         <div>
           <p>Frais de livraison</p>
-          <p>{`${deliveryPrice} €`}</p>
+          <p>{fixedDeliveryPrice} €</p>
         </div>
       </div>
 
       <div>
         <p>Total</p>
-        <p>TOTAL A CALCULER</p>
+        <p>
+          {((subTotal + deliveryPrice) / 100).toFixed(2).split(".").join(",")} €
+        </p>
       </div>
     </aside>
   );

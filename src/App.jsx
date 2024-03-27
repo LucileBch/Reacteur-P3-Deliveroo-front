@@ -22,6 +22,12 @@ const App = () => {
 
   const [cart, setCart] = useState([]);
 
+  let subTotal = 0;
+  for (let i = 0; i < cart.length; i++) {
+    const meal = cart[i];
+    subTotal = subTotal + meal.price * meal.quantity;
+  }
+
   const fetchData = async () => {
     const response = await axios.get(`http://localhost:3200/`);
     setData(response.data);
@@ -41,7 +47,13 @@ const App = () => {
         ) : (
           <>
             <Presentation datas={data} />
-            <Cart cart={cart} setCart={setCart} />
+
+            {cart.length === 0 ? (
+              <p>Panier Vide</p>
+            ) : (
+              <Cart cart={cart} setCart={setCart} subTotal={subTotal} />
+            )}
+
             <section className="meal-section">
               {data.meta.categories.map((category) => {
                 return (

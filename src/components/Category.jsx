@@ -10,17 +10,15 @@ const Category = ({ category, items, cart, setCart }) => {
 
     if (search) {
       search.quantity++;
-      search.price = search.quantity * search.originPrice;
+      search.price = search.quantity * search.price;
     } else {
       newCart.push({
         id: item.id,
         name: item.name,
-        originPrice: item.price.fractional / 100,
-        price: 1,
+        price: item.price.fractional,
         quantity: 1,
       });
     }
-
     setCart(newCart);
     console.log(newCart);
   };
